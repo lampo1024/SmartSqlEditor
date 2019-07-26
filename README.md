@@ -3,8 +3,8 @@
 
 数据库表名的智能感知提示效果：
 
-![](https://statics.codedefault.com/uploads/u/2019/07/970ay8v011.png)
+![](https://statics.codedefault.com/uploads/u/2019/07/o5as0791qq.png)
 
 列名的智能感知提示效果：
 
-![](https://statics.codedefault.com/uploads/u/2019/07/v568a32217.png)
+![](https://statics.codedefault.com/uploads/u/2019/07/48d16zd9m0.png)
