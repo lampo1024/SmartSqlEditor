@@ -25,25 +25,44 @@
     <script src="~/lib/codemirror/addon/hint/show-hint.min.js"></script>
     <script src="~/lib/codemirror/addon/hint/sql-hint.min.js"></script>
     <script src="~/lib/axios/axios.min.js"></script>
+    <style type="text/css">
+        body{margin:5px;padding:0;}
+        .CodeMirror.cm-s-idea{border:1px solid #eee;}
+        .el-card__body{padding:8px 0 0;}
+        .el-card__header{padding:8px 12px;}
+        .sse-toolbar{padding:0 12px; margin-bottom:8px;}
+    </style>
 </head>
 <body>
     <div id="app">
-        <div style="margin-bottom:10px;">
-            <el-button type="success" icon="el-icon-caret-right" @@click="handleExecuteSQL" size="mini">执 行</el-button>
-            <el-button type="primary" icon="el-icon-check" size="mini">代码检查</el-button>
-            <el-button type="danger" icon="el-icon-delete" size="mini">清空语句</el-button>
-        </div>
-        <textarea ref="mycode" class="codesql" v-model="code" style="height:200px;width:600px;"></textarea>
-        <div v-html="code"></div>
+        <el-card class="box-card">
+            <div slot="header" class="clearfix">
+                <span>在线SQL编辑器</span>
+            </div>
+            <div class="sse-toolbar">
+                <el-tooltip class="item" effect="dark" content="执行编辑器中的SQL语句" placement="bottom">
+                    <el-button type="success" icon="el-icon-caret-right" @@click="handleExecuteSQL" size="mini">执 行</el-button>
+                </el-tooltip>
+                <el-tooltip class="item" effect="dark" content="验证SQL语句的正确性" placement="bottom">
+                    <el-button type="primary" icon="el-icon-check" size="mini">代码检查</el-button>
+                </el-tooltip>
+                <el-tooltip class="item" effect="dark" content="清空编辑器中的SQL语句" placement="bottom">
+                    <el-button type="danger" icon="el-icon-delete" size="mini" @@click="handleClearCode">清空语句</el-button>
+                </el-tooltip>
+            </div>
+            <div class="cm-editor-box">
+                <textarea ref="mycode" class="codesql" v-model="code" style="height:200px;width:600px;"></textarea>
+            </div>
+        </el-card>
     </div>
     <script type="text/javascript">
 
         /*
-         *  {
-                            users: ['name', 'score', 'birthDate'],
-                            countries: ['name', 'population', 'size'],
-                            EPC_Base_Notify: ["Id_Bigint", "GroupId_Int"]
-                        }
+        *  {
+            users: ['name', 'score', 'birthDate'],
+            countries: ['name', 'population', 'size'],
+            EPC_Base_Notify: ["Id_Bigint", "GroupId_Int"]
+        }
          */
         var vm = new Vue({
             el: "#app",
@@ -101,6 +120,9 @@
                 },
                 handleExecuteSQL: function () {
                     console.log(this.code);
+                },
+                handleClearCode: function () {
+                    this.editor.setValue("");
                 }
             }
         });
