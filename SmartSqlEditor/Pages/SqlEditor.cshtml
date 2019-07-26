@@ -1,0 +1,109 @@
+﻿@page
+@model SmartSqlEditor.Pages.SqlEditorModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SqlEditor</title>
+    <link href="~/lib/codemirror/theme/ambiance.min.css" rel="stylesheet" />
+    <link href="~/lib/codemirror/codemirror.min.css" rel="stylesheet" />
+    <link href="~/lib/codemirror/addon/hint/show-hint.min.css" rel="stylesheet" />
+    <link href="~/lib/element-ui/theme-chalk/index.css" rel="stylesheet" />
+    <link href="~/lib/codemirror/theme/idea.min.css" rel="stylesheet" />
+    <script src="~/lib/codemirror/codemirror.min.js"></script>
+    <script src="~/lib/vue/vue.min.js"></script>
+    <script src="~/lib/element-ui/index.js"></script>
+    <script src="~/lib/codemirror/addon/edit/matchbrackets.min.js"></script>
+    <script src="~/lib/codemirror/addon/edit/trailingspace.min.js"></script>
+    <script src="~/lib/codemirror/addon/selection/active-line.min.js"></script>
+    <script src="~/lib/codemirror/mode/sql/sql.min.js"></script>
+    <script src="~/lib/codemirror/addon/hint/show-hint.min.js"></script>
+    <script src="~/lib/codemirror/addon/hint/sql-hint.min.js"></script>
+    <script src="~/lib/axios/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div style="margin-bottom:10px;">
+            <el-button type="success" icon="el-icon-caret-right" @@click="handleExecuteSQL" size="mini">执 行</el-button>
+            <el-button type="primary" icon="el-icon-check" size="mini">代码检查</el-button>
+            <el-button type="danger" icon="el-icon-delete" size="mini">清空语句</el-button>
+        </div>
+        <textarea ref="mycode" class="codesql" v-model="code" style="height:200px;width:600px;"></textarea>
+        <div v-html="code"></div>
+    </div>
+    <script type="text/javascript">
+
+        /*
+         *  {
+                            users: ['name', 'score', 'birthDate'],
+                            countries: ['name', 'population', 'size'],
+                            EPC_Base_Notify: ["Id_Bigint", "GroupId_Int"]
+                        }
+         */
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                code: "",
+                tables: { },
+                editor: null
+            },
+            mounted() {
+                this.loadColums();
+            },
+            methods: {
+                loadColums: function () {
+                    var target = this;
+                    axios.get("/api/database/FindColumns")
+                        .then(res => {
+                            target.tables = res.data;
+                            target.initEditor();
+                        });
+                },
+                initEditor: function () {
+                    var scope = this;
+                    let mime = 'text/x-mssql'
+                    let theme = 'idea'//设置主题，不设置的会使用默认主题
+                    this.editor = CodeMirror.fromTextArea(this.$refs.mycode, {
+                        mode: mime,//选择对应代码编辑器的语言，我这边选的是数据库，根据个人情况自行设置即可
+                        theme: theme,
+                        indentWithTabs: true,
+                        smartIndent: true,
+                        lineNumbers: true,
+                        matchBrackets: true,
+                        autoRefresh: true,
+                        hint: CodeMirror.hint.sql,
+                        option: {
+                            autofocus: true
+                        },
+                        autofocus: true,
+                        extraKeys: { 'Ctrl': 'autocomplete' },//自定义快捷键
+                        hintOptions: {//自定义提示选项
+                            tables: scope.tables
+                        }
+                    })
+                    //editor.setValue("select * from t_test_login where 1=1");
+
+                    this.editor.on("keyup", function (cm, event) {
+                        if (!cm.state.completionActive &&   /*Enables keyboard navigation in autocomplete list*/
+                            event.keyCode > 64 && event.keyCode < 91) {// only when a letter key is pressed
+                            CodeMirror.commands.autocomplete(cm, null, { completeSingle: false });
+                        }
+                    });
+
+                    this.editor.on('change', function (cm) {
+                        scope.code = cm.getValue();
+                    });
+                },
+                handleExecuteSQL: function () {
+                    console.log(this.code);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

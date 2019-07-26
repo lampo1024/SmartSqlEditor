@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29123.88
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSqlEditor", "SmartSqlEditor\SmartSqlEditor.csproj", "{A35E426A-2FEF-4B85-9301-BC2E162E2806}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A35E426A-2FEF-4B85-9301-BC2E162E2806}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A35E426A-2FEF-4B85-9301-BC2E162E2806}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A35E426A-2FEF-4B85-9301-BC2E162E2806}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A35E426A-2FEF-4B85-9301-BC2E162E2806}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A72A43D2-EB73-4A34-8F23-8D9A30F74F96}
+	EndGlobalSection
+EndGlobal

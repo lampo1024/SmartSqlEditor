@@ -1,0 +1,25 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+    "libraries": [
+        {
+            "library": "vue@2.6.10",
+            "destination": "wwwroot/lib/vue/",
+            "files": [
+                "vue.min.js"
+            ]
+        },
+        {
+            "library": "codemirror@5.48.2",
+            "destination": "wwwroot/lib/codemirror/"
+        },
+        {
+            "library": "axios@0.19.0",
+            "destination": "wwwroot/lib/axios/"
+        },
+        {
+            "library": "element-ui@2.10.1",
+            "destination": "wwwroot/lib/element-ui/"
+        }
+    ]
+}
