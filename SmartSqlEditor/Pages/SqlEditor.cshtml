@@ -44,7 +44,7 @@
                     <el-button type="success" icon="el-icon-caret-right" @@click="handleExecuteSQL" size="mini">执 行</el-button>
                 </el-tooltip>
                 <el-tooltip class="item" effect="dark" content="验证SQL语句的正确性" placement="bottom">
-                    <el-button type="primary" icon="el-icon-check" size="mini">代码检查</el-button>
+                    <el-button type="primary" icon="el-icon-check" size="mini" @@click="handleValidateSQL">代码检查</el-button>
                 </el-tooltip>
                 <el-tooltip class="item" effect="dark" content="清空编辑器中的SQL语句" placement="bottom">
                     <el-button type="danger" icon="el-icon-delete" size="mini" @@click="handleClearCode">清空语句</el-button>
@@ -119,7 +119,10 @@
                     });
                 },
                 handleExecuteSQL: function () {
-                    console.log(this.code);
+                    this.$message.warning("功能暂未实现");
+                },
+                handleValidateSQL: function () {
+                    this.$message.warning("功能暂未实现");
                 },
                 handleClearCode: function () {
                     this.editor.setValue("");
