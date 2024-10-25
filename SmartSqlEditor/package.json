@@ -2,6 +2,6 @@
   "name": "myproject",
   "version": "1.0.0",
   "devDependencies": {
-    "vue": "2.6.9"
+    "vue": "3.0.0"
   }
 }
